@@ -1,16 +1,13 @@
 /* eslint-disable id-length */
 /* eslint-disable no-mixed-operators */
 
-export default function loop() {
-  this.sea.mesh.rotation.z += 0.005;
-  this.sky.mesh.rotation.z += 0.01;
-
-  // 更新每帧的飞机
-  Reflect.apply(updatePlane, this, []);
-  
-  this.renderer.render(this.scene, this.camera);
-  // Note: 如果不加 this, 则调用当前 loop 函数, 而不是绑定之后的.
-  requestAnimationFrame(this.loop);
+function normalize(v, vmin, vmax, tmin, tmax) {
+  const nv = Math.max(Math.min(v, vmax), vmin);
+  const dv = vmax - vmin;
+  const pc = (nv - vmin) / dv;
+  const dt = tmax - tmin;
+  const tv = tmin + pc * dt;
+  return tv;
 }
 
 function updatePlane() {
@@ -26,13 +23,16 @@ function updatePlane() {
   this.airplane.propeller.rotation.x += 0.3;
 }
 
-function normalize(v, vmin, vmax, tmin, tmax) {
-  const nv = Math.max(Math.min(v, vmax), vmin);
-  const dv = vmax - vmin;
-  const pc = (nv - vmin) / dv;
-  const dt = tmax - tmin;
-  const tv = tmin + pc * dt;
-  return tv;
+export default function loop() {
+  this.sea.mesh.rotation.z += 0.005;
+  this.sky.mesh.rotation.z += 0.01;
+
+  // 更新每帧的飞机
+  Reflect.apply(updatePlane, this, []);
+
+  this.renderer.render(this.scene, this.camera);
+  // Note: 如果不加 this, 则调用当前 loop 函数, 而不是绑定之后的.
+  requestAnimationFrame(this.loop);
 }
 
 // 作者先前写的 loop, demo - 1 过程中被替换了

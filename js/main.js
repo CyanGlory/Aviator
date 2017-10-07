@@ -26,7 +26,7 @@ class Aviator {
     this.createEnv = createEnv.bind(this);
     this.createLights = createLights.bind(this);
     this.createEntity = createEntity.bind(this);
-    
+
     this.loop = loop.bind(this);
   }
 
@@ -35,7 +35,7 @@ class Aviator {
     this.createEnv();
     // 添加光源
     this.createLights();
-    
+
     // 添加物体: 飞机, 海洋, 天空
     this.createEntity();
 
@@ -56,12 +56,12 @@ class Aviator {
     this.camera.aspect = WIDTH / HEIGHT;
     this.camera.updateProjectionMatrix();
   }
-  
+
   handleMouseMove(event) {
     // 这里我把接收到的鼠标位置的值转换成归一化值，在-1与1之间变化
     // 这是x轴的公式:
     const tx = event.clientX / this.WIDTH * 2 - 1;
-  
+
     // 对于 y 轴，我们需要一个逆公式
     // 因为 2D 的 y 轴与 3D 的 y 轴方向相反
     const ty = event.clientY / this.HEIGHT * 2 + -1;
