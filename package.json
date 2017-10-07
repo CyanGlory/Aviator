@@ -1,0 +1,20 @@
+{
+  "name": "demo-3",
+  "version": "1.0.0",
+  "description": "代码重构能力, 以及 three.js 学习",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": " webpack --watch"
+  },
+  "keywords": [],
+  "author": "Riu.Zen",
+  "license": "ISC",
+  "dependencies": {
+    "three": "^0.87.1"
+  },
+  "devDependencies": {
+    "babel-loader": "^7.1.2",
+    "webpack": "^3.6.0"
+  }
+}
