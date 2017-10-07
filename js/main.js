@@ -39,10 +39,6 @@ class Aviator {
     // 添加物体: 飞机, 海洋, 天空
     this.createEntity();
 
-    // 监听鼠标移动
-    document.addEventListener('mousemove', this.handleMouseMove, false);
-    // 监听屏幕缩放, 缩放屏幕更新相机和渲染器的尺寸
-    window.addEventListener('resize', this.handleWindowResize, false);
     // 调用循环函数, 在每帧更新对象的位置和渲染场景
     this.loop();
   }
@@ -69,6 +65,11 @@ class Aviator {
   }
 }
 
-window.addEventListener('load', () => {
-  new Aviator().init();
-}, false);
+window.onload = function onload() {
+  const aviator = new Aviator();
+  aviator.init();
+  // 监听鼠标移动
+  document.addEventListener('mousemove', event => aviator.handleMouseMove(event), false);
+  // 监听屏幕缩放, 缩放屏幕更新相机和渲染器的尺寸
+  window.addEventListener('resize', () => aviator.handleWindowResize(), false);
+};

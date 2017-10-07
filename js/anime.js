@@ -13,7 +13,9 @@ function normalize(v, vmin, vmax, tmin, tmax) {
 function updatePlane() {
   // 让我们在x轴上-100至100之间和y轴25至175之间移动飞机
   // 根据鼠标的位置在-1与1之间的范围，我们使用的 normalize 函数实现（如下）
-
+  // console.log('====================================');
+  // console.log('updatePlane mousePos: ', this.mousePos);
+  // console.log('====================================');
   const targetX = normalize(this.mousePos.x, -1, 1, -100, 100);
   const targetY = normalize(this.mousePos.y, -1, 1, 25, 175);
 
