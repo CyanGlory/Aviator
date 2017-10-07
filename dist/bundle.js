@@ -44493,16 +44493,16 @@ function createLights() {
   shadowLight.shadow.camera.near = 1;
   shadowLight.shadow.camera.far = 1000;
 
-  // 定义阴影的分辨率；虽然分辨率越高越好，但是需要付出更加昂贵的代价维持高性能的表现。
-  shadowLight.shadow.mapSize.width = 2048;
-  shadowLight.shadow.mapSize.height = 2048;
+  // 定义阴影的分辨率, 虽然分辨率越高越好, 但是需要付出更加昂贵的代价维持高性能的表现。
+  shadowLight.shadow.mapSize.width = 1024;
+  shadowLight.shadow.mapSize.height = 1024;
 
   // 为了使这些光源呈现效果，只需要将它们添加到场景中
   this.scene.add(hemisphereLight);
   this.scene.add(shadowLight);
 }
 
-// 实例化大海对象, 并添加至场景
+// 实例化大海对象, 并添加至场景, 那个圆柱体
 function createSea() {
   this.sea = new __WEBPACK_IMPORTED_MODULE_1__Entity__["b" /* Sea */]();
 
@@ -44514,7 +44514,7 @@ function createSea() {
 }
 
 
-// 现在我们实例化天空对象，而且将它放置在屏幕中间稍微偏下的位置。
+// 现在我们实例化天空对象，而且将它放置在屏幕中间稍微偏下的位置, 漂浮的方块们
 function createSky() {
   this.sky = new __WEBPACK_IMPORTED_MODULE_1__Entity__["c" /* Sky */]();
   this.sky.mesh.position.y = -600;
@@ -44667,7 +44667,7 @@ function Cloud() {
   // 创建一个正方体, 这个形状会被复制创建云
   const geom = new __WEBPACK_IMPORTED_MODULE_0_three__["a" /* BoxGeometry */](20, 20, 20);
 
-  // 创建材质；一个简单的白色材质就可以达到效果
+  // 创建材质, 一个简单的白色材质就可以达到效果
   const mat = new __WEBPACK_IMPORTED_MODULE_0_three__["i" /* MeshPhongMaterial */]({
     color: Colors.white,
   });
@@ -44739,7 +44739,6 @@ function Sky() {
   }
 }
 
-/* unused harmony default export */ var _unused_webpack_default_export = ({});
 
 
 /***/ }),
@@ -44763,19 +44762,21 @@ function normalize(v, vmin, vmax, tmin, tmax) {
 
 function updatePlane() {
   // 让我们在x轴上-100至100之间和y轴25至175之间移动飞机
-  // 根据鼠标的位置在-1与1之间的范围，我们使用的 normalize 函数实现（如下）
+  // 根据鼠标的位置在-1与1之间的范围，我们使用的 normalize 函数实现(如下)
   const targetX = normalize(this.mousePos.x, -1, 1, -100, 100);
   const targetY = normalize(this.mousePos.y, -1, 1, 25, 175);
 
   // 更新飞机的位置
   this.airplane.mesh.position.y = targetY;
   this.airplane.mesh.position.x = targetX;
+  // 螺旋桨旋转
   this.airplane.propeller.rotation.x += 0.3;
 }
 
 function loop() {
-  this.sea.mesh.rotation.z += 0.005;
+  // 天空和海洋在旋转 -.- 天旋地转.
   this.sky.mesh.rotation.z += 0.01;
+  this.sea.mesh.rotation.z += 0.005;
 
   // 更新每帧的飞机
   Reflect.apply(updatePlane, this, []);

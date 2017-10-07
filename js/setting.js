@@ -96,16 +96,16 @@ export function createLights() {
   shadowLight.shadow.camera.near = 1;
   shadowLight.shadow.camera.far = 1000;
 
-  // 定义阴影的分辨率；虽然分辨率越高越好，但是需要付出更加昂贵的代价维持高性能的表现。
-  shadowLight.shadow.mapSize.width = 2048;
-  shadowLight.shadow.mapSize.height = 2048;
+  // 定义阴影的分辨率, 虽然分辨率越高越好, 但是需要付出更加昂贵的代价维持高性能的表现。
+  shadowLight.shadow.mapSize.width = 1024;
+  shadowLight.shadow.mapSize.height = 1024;
 
   // 为了使这些光源呈现效果，只需要将它们添加到场景中
   this.scene.add(hemisphereLight);
   this.scene.add(shadowLight);
 }
 
-// 实例化大海对象, 并添加至场景
+// 实例化大海对象, 并添加至场景, 那个圆柱体
 function createSea() {
   this.sea = new Sea();
 
@@ -117,7 +117,7 @@ function createSea() {
 }
 
 
-// 现在我们实例化天空对象，而且将它放置在屏幕中间稍微偏下的位置。
+// 现在我们实例化天空对象，而且将它放置在屏幕中间稍微偏下的位置, 漂浮的方块们
 function createSky() {
   this.sky = new Sky();
   this.sky.mesh.position.y = -600;

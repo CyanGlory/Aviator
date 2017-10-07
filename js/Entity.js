@@ -126,7 +126,7 @@ function Cloud() {
   // 创建一个正方体, 这个形状会被复制创建云
   const geom = new BoxGeometry(20, 20, 20);
 
-  // 创建材质；一个简单的白色材质就可以达到效果
+  // 创建材质, 一个简单的白色材质就可以达到效果
   const mat = new MeshPhongMaterial({
     color: Colors.white,
   });
@@ -198,4 +198,3 @@ export function Sky() {
   }
 }
 
-export default {};

@@ -12,19 +12,21 @@ function normalize(v, vmin, vmax, tmin, tmax) {
 
 function updatePlane() {
   // 让我们在x轴上-100至100之间和y轴25至175之间移动飞机
-  // 根据鼠标的位置在-1与1之间的范围，我们使用的 normalize 函数实现（如下）
+  // 根据鼠标的位置在-1与1之间的范围，我们使用的 normalize 函数实现(如下)
   const targetX = normalize(this.mousePos.x, -1, 1, -100, 100);
   const targetY = normalize(this.mousePos.y, -1, 1, 25, 175);
 
   // 更新飞机的位置
   this.airplane.mesh.position.y = targetY;
   this.airplane.mesh.position.x = targetX;
+  // 螺旋桨旋转
   this.airplane.propeller.rotation.x += 0.3;
 }
 
 export default function loop() {
-  this.sea.mesh.rotation.z += 0.005;
+  // 天空和海洋在旋转 -.- 天旋地转.
   this.sky.mesh.rotation.z += 0.01;
+  this.sea.mesh.rotation.z += 0.005;
 
   // 更新每帧的飞机
   Reflect.apply(updatePlane, this, []);
