@@ -33,7 +33,7 @@ export function Sea() {
     color: Colors.blue,
     transparent: true,
     opacity: 0.6,
-    shading: FlatShading,
+    flatShading: FlatShading,
   });
 
   // 为了在 js 创建一个物体, 我们必须创建网格用来组合几何体和一些材质
@@ -50,7 +50,7 @@ export function AirPlane() {
   const geomCockpit = new BoxGeometry(60, 50, 50, 1, 1, 1);
   const matCockpit = new MeshPhongMaterial({
     color: Colors.red,
-    shading: FlatShading,
+    flatShading: FlatShading,
   });
   const cockpit = new Mesh(geomCockpit, matCockpit);
   cockpit.castShadow = true;
@@ -61,7 +61,7 @@ export function AirPlane() {
   const geomEngine = new BoxGeometry(20, 50, 50, 1, 1, 1);
   const matEngine = new MeshPhongMaterial({
     color: Colors.white,
-    shading: FlatShading,
+    flatShading: FlatShading,
   });
   const engine = new Mesh(geomEngine, matEngine);
   engine.position.x = 40;
@@ -73,7 +73,7 @@ export function AirPlane() {
   const geomTailPlane = new BoxGeometry(15, 20, 5, 1, 1, 1);
   const matTailPlane = new MeshPhongMaterial({
     color: Colors.red,
-    shading: FlatShading,
+    flatShading: FlatShading,
   });
   const tailPlane = new Mesh(geomTailPlane, matTailPlane);
   tailPlane.position.set(-35, 25, 0);
@@ -85,7 +85,7 @@ export function AirPlane() {
   const geomSideWing = new BoxGeometry(40, 8, 150, 1, 1, 1);
   const matSideWing = new MeshPhongMaterial({
     color: Colors.red,
-    shading: FlatShading,
+    flatShading: FlatShading,
   });
   const sideWing = new Mesh(geomSideWing, matSideWing);
   sideWing.castShadow = true;
@@ -96,7 +96,7 @@ export function AirPlane() {
   const geomPropeller = new BoxGeometry(20, 10, 10, 1, 1, 1);
   const matPropeller = new MeshPhongMaterial({
     color: Colors.brown,
-    shading: FlatShading,
+    flatShading: FlatShading,
   });
   this.propeller = new Mesh(geomPropeller, matPropeller);
   this.propeller.castShadow = true;
@@ -106,7 +106,7 @@ export function AirPlane() {
   const geomBlade = new BoxGeometry(1, 100, 20, 1, 1, 1);
   const matBlade = new MeshPhongMaterial({
     color: Colors.brownDark,
-    shading: FlatShading,
+    flatShading: FlatShading,
   });
 
   const blade = new Mesh(geomBlade, matBlade);

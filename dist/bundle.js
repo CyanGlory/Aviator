@@ -44413,14 +44413,15 @@ function createEnv() {
     // 创建场景
     this.scene = new __WEBPACK_IMPORTED_MODULE_0_three__["l" /* Scene */]();
 
-    // 在场景中添加雾的效果；样式上使用和背景一样的颜色
+    // 在场景中添加雾的效果, 这会影响到哪些远处的方块的颜色
+    // 所以, 样式上使用和背景一样的颜色
     this.scene.fog = new __WEBPACK_IMPORTED_MODULE_0_three__["e" /* Fog */](0xf7d9aa, 100, 950);
   };
 
   const createCamera = () => {
     // 创建相机
-    const aspectRatio = this.WIDTH / this.HEIGHT;
     const fieldOfView = 60;
+    const aspectRatio = this.WIDTH / this.HEIGHT;
     const nearPlane = 1;
     const farPlane = 10000;
 
@@ -44446,16 +44447,16 @@ function createEnv() {
 
   const createRenderer = () => {
     // 创建渲染器
-    this.renderer = new __WEBPACK_IMPORTED_MODULE_0_three__["m" /* WebGLRenderer */]({ 
-      alpha: true,      // 在 css 中设置背景色透明显示渐变色
+    this.renderer = new __WEBPACK_IMPORTED_MODULE_0_three__["m" /* WebGLRenderer */]({
+      alpha: true,      // 在 css 中设置背景色透明显示渐变色, 关闭后, css 背景色将失效
       antialias: true,  // 开启抗锯齿, 但这样会降低性能。不过, 由于我们的项目基于低多边形的, 那还好 :)
     });
 
-    // 定义渲染器的尺寸；在这里它会填满整个屏幕
-    this.renderer.setSize(this.WIDTH, this.HEIGHT); 
+    // 定义渲染器的尺寸, 在这里它会填满整个屏幕
+    this.renderer.setSize(this.WIDTH, this.HEIGHT);
 
-    // 打开渲染器的阴影地图
-    this.renderer.shadowMap.enabled = true; 
+    // 打开渲染器的阴影地图, 将影响圆柱体的阴影
+    this.renderer.shadowMap.enabled = true;
 
     // 在 HTML 创建的容器中添加渲染器的 DOM 元素
     this.container = document.getElementById('world');
@@ -44471,17 +44472,17 @@ function createLights() {
   // 半球光就是渐变的光
   // 第一个参数是天空的颜色, 第三个参数是光源的强度
   const hemisphereLight = new __WEBPACK_IMPORTED_MODULE_0_three__["f" /* HemisphereLight */](0xaaaaaa, 0x000000, 0.9);
-  
+
   // 方向光是从一个特定的方向的照射
   // 类似太阳，即所有光源是平行的
   // 第一个参数是关系颜色，第二个参数是光源强度
   const shadowLight = new __WEBPACK_IMPORTED_MODULE_0_three__["c" /* DirectionalLight */](0xffffff, 0.9);
-  
+
   // 设置光源的方向。
   // 位置不同，方向光作用于物体的面也不同，看到的颜色也不同
   shadowLight.position.set(150, 350, 350);
 
-  // 开启光源投影 
+  // 开启光源投影
   shadowLight.castShadow = true;
 
   // 定义可见域的投射阴影
@@ -44501,12 +44502,6 @@ function createLights() {
   this.scene.add(shadowLight);
 }
 
-function createEntity() {
-  Reflect.apply(createSea, this, []);
-  Reflect.apply(createSky, this, []);
-  Reflect.apply(createPlane, this, []);
-}
-
 // 实例化大海对象, 并添加至场景
 function createSea() {
   this.sea = new __WEBPACK_IMPORTED_MODULE_1__Entity__["b" /* Sea */]();
@@ -44516,8 +44511,6 @@ function createSea() {
 
   // 添加大海的网格至场景
   this.scene.add(this.sea.mesh);
-
-  return this;
 }
 
 
@@ -44527,8 +44520,6 @@ function createSky() {
   this.sky.mesh.position.y = -600;
 
   this.scene.add(this.sky.mesh);
-
-  return this;
 }
 
 function createPlane() {
@@ -44536,10 +44527,13 @@ function createPlane() {
   this.airplane.mesh.scale.set(0.25, 0.25, 0.25);
   this.airplane.mesh.position.y = 100;
   this.scene.add(this.airplane.mesh);
-
-  return this;
 }
 
+function createEntity() {
+  Reflect.apply(createSea, this, []);
+  Reflect.apply(createSky, this, []);
+  Reflect.apply(createPlane, this, []);
+}
 
 
 /***/ }),
@@ -44580,7 +44574,7 @@ function Sea() {
     color: Colors.blue,
     transparent: true,
     opacity: 0.6,
-    shading: __WEBPACK_IMPORTED_MODULE_0_three__["d" /* FlatShading */],
+    flatShading: __WEBPACK_IMPORTED_MODULE_0_three__["d" /* FlatShading */],
   });
 
   // 为了在 js 创建一个物体, 我们必须创建网格用来组合几何体和一些材质
@@ -44597,7 +44591,7 @@ function AirPlane() {
   const geomCockpit = new __WEBPACK_IMPORTED_MODULE_0_three__["a" /* BoxGeometry */](60, 50, 50, 1, 1, 1);
   const matCockpit = new __WEBPACK_IMPORTED_MODULE_0_three__["i" /* MeshPhongMaterial */]({
     color: Colors.red,
-    shading: __WEBPACK_IMPORTED_MODULE_0_three__["d" /* FlatShading */],
+    flatShading: __WEBPACK_IMPORTED_MODULE_0_three__["d" /* FlatShading */],
   });
   const cockpit = new __WEBPACK_IMPORTED_MODULE_0_three__["h" /* Mesh */](geomCockpit, matCockpit);
   cockpit.castShadow = true;
@@ -44608,7 +44602,7 @@ function AirPlane() {
   const geomEngine = new __WEBPACK_IMPORTED_MODULE_0_three__["a" /* BoxGeometry */](20, 50, 50, 1, 1, 1);
   const matEngine = new __WEBPACK_IMPORTED_MODULE_0_three__["i" /* MeshPhongMaterial */]({
     color: Colors.white,
-    shading: __WEBPACK_IMPORTED_MODULE_0_three__["d" /* FlatShading */],
+    flatShading: __WEBPACK_IMPORTED_MODULE_0_three__["d" /* FlatShading */],
   });
   const engine = new __WEBPACK_IMPORTED_MODULE_0_three__["h" /* Mesh */](geomEngine, matEngine);
   engine.position.x = 40;
@@ -44620,7 +44614,7 @@ function AirPlane() {
   const geomTailPlane = new __WEBPACK_IMPORTED_MODULE_0_three__["a" /* BoxGeometry */](15, 20, 5, 1, 1, 1);
   const matTailPlane = new __WEBPACK_IMPORTED_MODULE_0_three__["i" /* MeshPhongMaterial */]({
     color: Colors.red,
-    shading: __WEBPACK_IMPORTED_MODULE_0_three__["d" /* FlatShading */],
+    flatShading: __WEBPACK_IMPORTED_MODULE_0_three__["d" /* FlatShading */],
   });
   const tailPlane = new __WEBPACK_IMPORTED_MODULE_0_three__["h" /* Mesh */](geomTailPlane, matTailPlane);
   tailPlane.position.set(-35, 25, 0);
@@ -44632,7 +44626,7 @@ function AirPlane() {
   const geomSideWing = new __WEBPACK_IMPORTED_MODULE_0_three__["a" /* BoxGeometry */](40, 8, 150, 1, 1, 1);
   const matSideWing = new __WEBPACK_IMPORTED_MODULE_0_three__["i" /* MeshPhongMaterial */]({
     color: Colors.red,
-    shading: __WEBPACK_IMPORTED_MODULE_0_three__["d" /* FlatShading */],
+    flatShading: __WEBPACK_IMPORTED_MODULE_0_three__["d" /* FlatShading */],
   });
   const sideWing = new __WEBPACK_IMPORTED_MODULE_0_three__["h" /* Mesh */](geomSideWing, matSideWing);
   sideWing.castShadow = true;
@@ -44643,7 +44637,7 @@ function AirPlane() {
   const geomPropeller = new __WEBPACK_IMPORTED_MODULE_0_three__["a" /* BoxGeometry */](20, 10, 10, 1, 1, 1);
   const matPropeller = new __WEBPACK_IMPORTED_MODULE_0_three__["i" /* MeshPhongMaterial */]({
     color: Colors.brown,
-    shading: __WEBPACK_IMPORTED_MODULE_0_three__["d" /* FlatShading */],
+    flatShading: __WEBPACK_IMPORTED_MODULE_0_three__["d" /* FlatShading */],
   });
   this.propeller = new __WEBPACK_IMPORTED_MODULE_0_three__["h" /* Mesh */](geomPropeller, matPropeller);
   this.propeller.castShadow = true;
@@ -44653,7 +44647,7 @@ function AirPlane() {
   const geomBlade = new __WEBPACK_IMPORTED_MODULE_0_three__["a" /* BoxGeometry */](1, 100, 20, 1, 1, 1);
   const matBlade = new __WEBPACK_IMPORTED_MODULE_0_three__["i" /* MeshPhongMaterial */]({
     color: Colors.brownDark,
-    shading: __WEBPACK_IMPORTED_MODULE_0_three__["d" /* FlatShading */],
+    flatShading: __WEBPACK_IMPORTED_MODULE_0_three__["d" /* FlatShading */],
   });
 
   const blade = new __WEBPACK_IMPORTED_MODULE_0_three__["h" /* Mesh */](geomBlade, matBlade);
@@ -44770,9 +44764,6 @@ function normalize(v, vmin, vmax, tmin, tmax) {
 function updatePlane() {
   // 让我们在x轴上-100至100之间和y轴25至175之间移动飞机
   // 根据鼠标的位置在-1与1之间的范围，我们使用的 normalize 函数实现（如下）
-  // console.log('====================================');
-  // console.log('updatePlane mousePos: ', this.mousePos);
-  // console.log('====================================');
   const targetX = normalize(this.mousePos.x, -1, 1, -100, 100);
   const targetY = normalize(this.mousePos.y, -1, 1, 25, 175);
 
