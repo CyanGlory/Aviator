@@ -2,7 +2,7 @@
 
 一个采用 Three.js 的 3D 动画场景制作：飞行者(第一部分), es6 + webpack 重构版.
 
-参考简书(http://www.jianshu.com/p/92771817c73f), 译文
+参考简书 http://www.jianshu.com/p/92771817c73f, 译文
 
 ## 项目成品图
 
